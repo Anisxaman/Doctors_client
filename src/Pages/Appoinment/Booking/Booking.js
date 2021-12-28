@@ -5,7 +5,7 @@ import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import BookingModal from '../BookingModal/BookingModal';
 
-const Booking = ({booking}) => {
+const Booking = ({booking,date}) => {
     const [openBooking, setOpenBooking] = React.useState(false);
     const handleBookingOpen = () => setOpenBooking(true);
     const handleBookingClose = () => setOpenBooking(false);
@@ -32,6 +32,8 @@ const Booking = ({booking}) => {
         <BookingModal 
         openBooking={openBooking}
         handleBookingClose={handleBookingClose}
+        booking={booking}
+        date={date}
         >
 
         </BookingModal>

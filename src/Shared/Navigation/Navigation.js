@@ -32,7 +32,10 @@ const Navigation = () => {
 </Link>
          <Link style={{textDecoration:"none"}} to="/appoinment"><Button style={{color:"white"}}>Appoinment</Button>
 </Link>
-          <Button color="inherit">Login</Button>
+
+
+      <Link  style={{textDecoration:"none"}} to="/login"><Button style={{color:"white"}} >Login</Button></Link>
+         
         </Toolbar>
       </AppBar>
     </Box>

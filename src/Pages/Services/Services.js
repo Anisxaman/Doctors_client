@@ -38,7 +38,7 @@ const Services = () => {
     return (
         <>
        <Container>
-       <Typography sx={{ textAlign: 'center',fontWeight: 'bold', my:2 }} variant="h6" color="text.success.main" gutterBottom>
+       <Typography sx={{ textAlign: 'center',fontWeight: 'bold', my:2 }} variant="h5" color="text.success.main" gutterBottom>
           Our Services
         </Typography>
        <Typography  sx={{ textAlign: 'center', my:5 }} variant="h4" color="text.warning" gutterBottom>
