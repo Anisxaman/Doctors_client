@@ -8,6 +8,8 @@ import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword  ,si
 initializeFirebase();
 
 const useFirebase=()=>{
+  const [isloading, setisloading] = useState(true);
+  const [authError, setauthError] = useState("")
     const [user, setuser] = useState({});
 
     const auth = getAuth();
@@ -18,7 +20,7 @@ const useFirebase=()=>{
 
 const registerUser=(email,password)=>{
 
-
+setisloading(true);
   console.log(email,password);
 
   createUserWithEmailAndPassword(auth, email, password)
@@ -26,14 +28,18 @@ const registerUser=(email,password)=>{
     // Signed in 
     const user = userCredential.user;
     console.log(user);
+    setauthError("");
     // ...
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
+    setauthError(error.message);
+
     console.log(errorCode,errorMessage);
     // ..
-  });
+  })
+  .finally(()=>setisloading(false));
 
     
 }
@@ -42,17 +48,24 @@ const registerUser=(email,password)=>{
 // -------------------------signInWithEmailAndPassword ----------------
 
 const loginUser=(email,password)=>{
+  setisloading(true);
 
   signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
+    setauthError("");
     // ...
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-  });
+    setauthError(error.message);
+
+  })
+  .finally(()=>setisloading(false));
+
+  
 
 }
 
@@ -80,6 +93,8 @@ useEffect(() => {
         } else {
          setuser({})
         }
+        setisloading(false);
+
       });
  return ()=>unsubscribe;
 }, [])
@@ -92,8 +107,12 @@ const logout=()=>{
     signOut(auth).then(() => {
         // Sign-out successful.
       }).catch((error) => {
-        // An error happened.
-      });
+        setauthError(error);
+
+      })
+      .finally(()=>setisloading(false));
+      
+      
       
 }
 
@@ -103,7 +122,9 @@ const logout=()=>{
         user,
         registerUser,
         logout,
-        loginUser
+        loginUser,
+        isloading,
+        authError
     }
 
 }

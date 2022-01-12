@@ -1,13 +1,17 @@
-import { Grid, TextField, Typography,Button } from '@mui/material';
+import { Grid, TextField, Typography,Button, Box, CircularProgress, Alert, AlertTitle } from '@mui/material';
 import React,{ useState} from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import useAuth from '../../hooks/UseAuth';
 import login from "../../images/login.png"
 const Login = () => {
    const [loginData, setloginData] = useState({})
+   const { loginUser,user,isloading, authError}=useAuth();
 
 
    
     const handleLoginSubmit=e=>{
+
+        loginUser(loginData.email,loginData.password);
        
         e.preventDefault();
         alert("hellow")
@@ -57,6 +61,20 @@ console.log(loginData);
         <NavLink style={{textDecoration:"none"}} to="/register"><Button variant="text">New User?Please Register</Button></NavLink>
 
         </form>
+        {isloading &&  <Box sx={{ display: 'flex' ,alignItems:"center",justifyContent:"center"}}>
+                                     <CircularProgress />
+                    </Box>}
+        {
+            user?.email && <Alert severity="success">User created successfully</Alert>
+
+        }
+        {
+            authError && <Alert sx={{textAlign: "center"}} severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {authError}
+          </Alert>
+
+        }
    
   </Grid>
   <Grid item xs={12} md={6}>

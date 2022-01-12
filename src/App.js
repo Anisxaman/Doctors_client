@@ -11,6 +11,7 @@ import Appoinment from './Pages/Appoinment/Appoinment';
 import Login from './Pages/LoginPage/Login';
 import Register from './Pages/LoginPage/Register/Register';
 import AuthProvider from './Context/AuthProvider/AuthProvider';
+import PrivateRoute from './Pages/LoginPage/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
@@ -18,9 +19,10 @@ function App() {
   < AuthProvider>
       <BrowserRouter>
           <Routes>
-                <Route path="/appoinment" element={<Appoinment/>} />
+                <Route path="/appoinment" 
+                element={<PrivateRoute><Appoinment/></PrivateRoute>} />
                 <Route path="/home"  element={<Home />} />
-                <Route path="/login"  element={<Login/>} />
+                <Route  path="/login"  element={<Login/>} />
                 <Route path="/register"  element={<Register/>} />
                 <Route path="/"  element={<Home />} />
           

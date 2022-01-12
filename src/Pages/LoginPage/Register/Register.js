@@ -1,4 +1,4 @@
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import { Alert, AlertTitle, Box, Button, CircularProgress, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../../../hooks/UseAuth';
@@ -8,7 +8,7 @@ const Register = () => {
 
     const [loginData, setloginData] = useState({})
 
-    const {registerUser}=useAuth();
+    const {registerUser,isloading,user,authError}=useAuth();
    
     const handleLoginSubmit=e=>{
         if(loginData.password!==loginData.password2){
@@ -51,7 +51,7 @@ const Register = () => {
         </Typography>
 
 
-        <form onSubmit={handleLoginSubmit}>
+        { !isloading && <form onSubmit={handleLoginSubmit}>
                 <TextField id="standard-basic" sx={{width:"75%",m:1}} name="email" 
                 onBlur={handleOnChange} type="email" label="Your Email" variant="standard" />
 
@@ -67,9 +67,24 @@ const Register = () => {
           autoComplete="current-password"
         /> */}
         <Button sx={{width:"75%",m:1}} variant="contained" type="submit">Register</Button>
-        <NavLink style={{textDecoration:"none"}} to="register"><Button variant="text">already registered?Please Login</Button></NavLink>
+        <NavLink  style={{textDecoration:"none"}} to="/login"><Button variant="text">already registered?Please Login</Button></NavLink>
 
-        </form>
+        </form>}
+
+        {isloading &&  <Box sx={{ display: 'flex' ,alignItems:"center",justifyContent:"center"}}>
+                                     <CircularProgress />
+                    </Box>}
+        {
+            user?.email && <Alert severity="success">User created successfully</Alert>
+
+        }
+        {
+            authError && <Alert sx={{textAlign: "center"}} severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {authError}
+          </Alert>
+
+        }
    
   </Grid>
   <Grid item xs={12} md={6}>
