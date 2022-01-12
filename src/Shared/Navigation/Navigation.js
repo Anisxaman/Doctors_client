@@ -6,10 +6,17 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import useAuth from '../../hooks/UseAuth';
 
 
 const Navigation = () => {
+  const {user,logout}=useAuth();
+
+const bash=()=>{
+  alert("hi")
+}
+
     return (
         <>
 
@@ -34,7 +41,15 @@ const Navigation = () => {
 </Link>
 
 
-      <Link  style={{textDecoration:"none"}} to="/login"><Button style={{color:"white"}} >Login</Button></Link>
+  {
+    user?.email?
+    <Button    onClick={logout} style={{color:"white"}} >Logout</Button>
+        
+    :
+
+    <NavLink  style={{textDecoration:"none"}} to="/login"><Button style={{color:"white"}} >Login</Button>
+    </NavLink>
+  }
          
         </Toolbar>
       </AppBar>
