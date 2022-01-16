@@ -47,11 +47,17 @@ setisloading(true);
 
 // -------------------------signInWithEmailAndPassword ----------------
 
-const loginUser=(email,password)=>{
+const loginUser=(email,password,location,navigate)=>{
   setisloading(true);
 
   signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
+    const destination=location?.state?.from||"/";
+
+
+    console.log("destination------------->",destination);
+    navigate(destination);
+    
     // Signed in 
     const user = userCredential.user;
     setauthError("");

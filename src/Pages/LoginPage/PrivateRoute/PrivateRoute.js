@@ -3,9 +3,10 @@ import React from 'react';
 import { Navigate, Route, useLocation } from 'react-router-dom';
 import useAuth from '../../../hooks/UseAuth';
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ children}) => {
     let {user,isloading} = useAuth();
-    const location=useLocation();
+    const location= useLocation();
+    console.log("from private:",location);
     if(isloading){
         return <CircularProgress/>
     }
@@ -16,12 +17,19 @@ const PrivateRoute = ({ children, ...rest }) => {
     return  <Navigate
               to={{
                 pathname: "/login",
-                state: { from: location }
-              }}
+            //    state: { from: location }
+              }
+         
+            }              
+               replace state= {{ from: location} }
+
             />
+
+
+            
     // return (
     //     <Route
-    //     {...rest}
+       
     //     render={({ location }) =>
     //       user.email ? (
     //         children

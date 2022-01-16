@@ -1,17 +1,24 @@
 import { Grid, TextField, Typography,Button, Box, CircularProgress, Alert, AlertTitle } from '@mui/material';
 import React,{ useState} from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/UseAuth';
 import login from "../../images/login.png"
+import Navigation from '../../Shared/Navigation/Navigation';
 const Login = () => {
+
+
    const [loginData, setloginData] = useState({})
    const { loginUser,user,isloading, authError}=useAuth();
+    const location= useLocation();
+    const navigate = useNavigate();
 
 
+console.log("location",location);
+console.log("history",navigate);
    
     const handleLoginSubmit=e=>{
 
-        loginUser(loginData.email,loginData.password);
+        loginUser(loginData.email,loginData.password,location,navigate);
        
         e.preventDefault();
         alert("hellow")
@@ -38,6 +45,7 @@ console.log(loginData);
 
     return (
         <>
+        <Navigation></Navigation>
         <Grid container spacing={2}>
         <Grid item sx={{mt:8}} xs={12} md={6}>
         <Typography sx={{fontWeight: 'bold'}} variant="body1" gutterBottom>
@@ -65,7 +73,7 @@ console.log(loginData);
                                      <CircularProgress />
                     </Box>}
         {
-            user?.email && <Alert severity="success">User created successfully</Alert>
+            user?.email && <Alert severity="success">User login successfully</Alert>
 
         }
         {
